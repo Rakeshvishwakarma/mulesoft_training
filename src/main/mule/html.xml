@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="ede27b88-9965-481b-ab09-3f7579fa69c1" >
+		<file:connection workingDir="C:\AnypointStudio\practice" />
+	</file:config>
+	<file:config name="File_Config1" doc:name="File Config" doc:id="e4f3fd50-9d0f-4d7c-a3fd-667561b3a5f4" >
+		<file:connection workingDir="C:\AnypointStudio\training_Practice" />
+	</file:config>
+	<file:config name="File_Config2" doc:name="File Config" doc:id="355a4b7b-54d4-4fce-8813-87658f08d77c" >
+		<file:connection workingDir="C:\AnypointStudio\training_Practice" />
+	</file:config>
+	<file:config name="File_Config3" doc:name="File Config" doc:id="f3e54a41-e217-45a5-bf23-673e521141f1" >
+		<file:connection workingDir="C:\AnypointStudio\training_Practice" />
+	</file:config>
+	<file:config name="File_Config4" doc:name="File Config" doc:id="4c2f5921-b8d8-4b37-b21f-cafbb44a66fc" >
+		<file:connection workingDir="C:\AnypointStudio\training_Practice" />
+	</file:config>
+	<flow name="htmlFlow" doc:id="df15c580-c984-4904-9f25-d3feda771536" >
+		<scheduler doc:name="Scheduler" doc:id="904280fd-5942-4ff9-b0b0-3edf44dc13b2" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="5b8d1ad2-4178-4ce7-9911-7cb6aaf85e52" message="Good Morning"/>
+		<file:list doc:name="List" doc:id="40e7009a-61f8-4903-892b-18450c98cd45" config-ref="File_Config4" directoryPath="C:\AnypointStudio\training_Practice" target="string"/>
+		<logger level="INFO" doc:name="Logger" doc:id="cdedda57-70e3-4f9f-9d75-2daee2dd50a7" message="#[vars.string]"/>
+		<foreach doc:name="For Each" doc:id="d5b65bbb-cb86-47b2-9097-3fe2dd781ef4" collection="#[vars.files]">
+			<file:read doc:name="Read" doc:id="a6c357bb-28bc-4263-9b6d-91739de8af55" config-ref="File_Config3" path="C:\AnypointStudio\training_Practice\test3.txt" target="string2" outputMimeType="application/json"/>
+			<logger level="INFO" doc:name="Logger" doc:id="76804358-f367-4b17-a3d6-a8169b3462f4" message='#["Files has read "]'/>
+		</foreach>
+	</flow>
+</mule>
